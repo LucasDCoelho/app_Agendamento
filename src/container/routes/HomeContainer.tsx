@@ -8,14 +8,7 @@ export function HomeContainer() {
     <>
       <Header/>
       <ContentHour>
-        <CardHorario/>
-        <CardHorario/>
-        <CardHorario/>
-        <CardHorario/>
-        <CardHorario/>
-        <CardHorario/>
-        <CardHorario/>
-        <CardHorario/>
+        <CardHorario titleHorario="Segunda"/>
       </ContentHour>
     </>
   )

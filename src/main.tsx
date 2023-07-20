@@ -5,11 +5,21 @@ import './index.css'
 
 // Components
 import { HomeContainer } from './container/routes/HomeContainer'
+import { Login } from './components/Dashboard/Login'
+import { DashboardContainer } from './container/routes/DashboardContainer'
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomeContainer />
+    element: <HomeContainer />,
+  },
+  {
+    path: "/login",
+    element: <Login email='' password=''/>
+  },
+  {
+    path: "/dashboard",
+    element: <DashboardContainer/>
   }
 ])
 
