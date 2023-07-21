@@ -1,6 +1,7 @@
 import { signInWithEmailAndPassword } from "firebase/auth/cordova";
 import { auth } from "../../../firebase.config";
 import { Navigate } from "react-router-dom";
+import { useState } from "react";
 
 type LoginProps = {
   email: string,
@@ -11,22 +12,27 @@ export function Login({
   email,
   password
 }: LoginProps) {
+  const [ emailValue, setEmailValue ] = useState(email);
+  const [ passwordValue, setPassowordValue ] = useState(password);
+  const [ isAutenticated, setIsAutenticated ] = useState(false);
 
-  const handleSubmit = () => {
-    signInWithEmailAndPassword(auth, email, password)
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+
+    signInWithEmailAndPassword(auth, emailValue, passwordValue)
       .then((userCredencial) => {
         const user = userCredencial.user;
         console.log("Usuario logado", user);
-        {user && (
-          <Navigate to={`${user}/dashboard`} />
-        )}
-        
+        setIsAutenticated(true)
       })
       .catch((error) => {
         console.error("Erro ao logar", error);
       })
   }
 
+  if(isAutenticated){
+    return <Navigate to="/dashboard" />
+  }
 
   return (
     <>
@@ -45,12 +51,16 @@ export function Login({
               type="email"
               placeholder="name@email.com"
               className="border rounded p-2 mb-4"
+              value={emailValue}
+              onChange={(e) => setEmailValue(e.target.value)}
             />
             <label htmlFor="password">Senha</label>
             <input
               type="password"
               placeholder="*********"
               className="border rounded p-2 mb-8"
+              value={passwordValue}
+              onChange={(e) => setPassowordValue(e.target.value)}
             />
           </div>
 
